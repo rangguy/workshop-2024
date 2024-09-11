@@ -1,13 +1,15 @@
 import Head from "next/head";
-import Input from "../components/Input";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { LOGIN_INPUT } from "@/configs/form";
+import { Button } from "@/components/Button";
+import { InputGroup } from "@/components/InputGroup";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState("");
+  const [errors, setErrors] = useState({});
   const router = useRouter();
 
   const handleSubmit = (event) => {
@@ -31,6 +33,16 @@ export default function Login() {
       setErrors({ login: "Invalid email or password" });
     }
   };
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    if (id === "email") {
+      setEmail(value);
+    } else if (id === "password") {
+      setPassword(value);
+    }
+  };
+
   return (
     <>
       <Head>
@@ -48,36 +60,12 @@ export default function Login() {
                   </div>
                 </div>
               )}
-              <Input
-                Form="form-control"
-                title="Email"
-                name="email"
-                type="email"
-                placeholder="Enter your email"
-                className="input input-bordered"
-                onChange={(event) => setEmail(event.target.value)}
-                errorDiv={errors.email ? "text-red-500 mt-2 text-sm" : "d-none"}
-                errorMsg={errors.email}
-              />
-              <Input
-                Form="form-control mt-4"
-                title="Password"
-                name="password"
-                type="password"
-                placeholder="Enter your password"
-                className="input input-bordered"
-                onChange={(event) => setPassword(event.target.value)}
-                errorDiv={
-                  errors.password ? "text-red-500 mt-2 text-sm" : "d-none"
-                }
-                errorMsg={errors.password}
-              />
-              <Input
-                Form="form-control mt-6"
-                type="submit"
-                className="btn btn-primary"
-                value="Login"
-              />
+              {LOGIN_INPUT.map((input) => (
+                <InputGroup key={input.id} {...input} />
+              ))}
+              <div className="form-control mt-6">
+                <Button label="Login" />
+              </div>
               <div className="mt-4 text-center">
                 <Link href="/register" className="text-sm text-primary">
                   Doesn't have an account?
