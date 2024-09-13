@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <div className="navbar bg-base-100 shadow-lg">
+    <nav className="navbar bg-base-100 shadow-lg">
       <div className="flex-1">
         <a className="btn btn-ghost normal-case text-2xl font-bold">
           Workshop 2024
@@ -48,6 +48,6 @@ export default function Navbar() {
           </ul>
         </div>
       </div>
-    </div>
+    </nav>
   );
 }

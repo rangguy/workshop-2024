@@ -1,24 +1,21 @@
-import { ErrorDiv } from "./Error";
-import { Input } from "./Input";
-import { Label } from "./Label";
+import React, { forwardRef } from "react";
 
-export function InputGroup({
-  id,
-  className = "form-control",
-  type = "text",
-  label = "",
-  required,
-  placeholder = `Enter your ${label.toLowerCase()}`,
-  value,
-  onChange,
-  errorDiv = "d-none",
-  errorMessage = "",
-}) {
-  return (
-    <div className={className}>
-      <Label name={id} label={label} required={required} />
-      <Input id={id} type={type} placeholder={placeholder} value={value} onChange={onChange} />
-      <ErrorDiv className={errorDiv} message={errorMessage} />
-    </div>
-  );
-}
+export const InputGroup = forwardRef(
+  ({ id, label, type, className, ...rest }, ref) => {
+    return (
+      <div className={className}>
+        <label htmlFor={id} className="label">
+          {label}
+        </label>
+        <input
+          id={id}
+          type={type}
+          className="input input-bordered"
+          ref={ref} 
+          {...rest} 
+        />
+    
+      </div>
+    );
+  }
+);
