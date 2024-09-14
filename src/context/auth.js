@@ -1,4 +1,4 @@
-import { Authentication } from "@/services/firebase";
+import { Authentication } from "@/configs/firebase";
 import { useEffect } from "react";
 
 export default function AuthStateChangeProvider() {

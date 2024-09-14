@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Button } from "@/components/Button";
 import { InputGroup } from "@/components/InputGroup";
 import { useForm } from "react-hook-form";
-import { GetSignInErrorMessage, SignIn } from "../services/firebase";
+import  { GetSignInErrorMessage, SignIn } from "@/configs/firebase"
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 

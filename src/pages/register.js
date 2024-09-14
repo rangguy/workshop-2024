@@ -3,19 +3,18 @@ import Link from "next/link";
 import { InputGroup } from "@/components/InputGroup";
 import { Button } from "@/components/Button";
 import { useForm } from "react-hook-form";
-import { SignUp } from "@/services/firebase";
 import { useRouter } from "next/router";
 import Swal from "sweetalert2";
+import { SignUp } from "@/configs/firebase";
 
 export default function Register() {
-  const navigate = useRouter();
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
+  const navigate = useRouter();
   const onSubmit = async (data) => {
     const { email, password } = data;
     try {
@@ -25,7 +24,7 @@ export default function Register() {
         text: `Selamat Datang ${email}`,
         icon: "success",
       });
-      navigate("/produk");
+      navigate.push("/produk");
     } catch (error) {
       console.log(error);
     }

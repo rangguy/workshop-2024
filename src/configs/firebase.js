@@ -1,9 +1,10 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp, getApps } from "firebase/app";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  onAuthStateChanged as _onAuthStateChanged
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -17,23 +18,36 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-export const FirebaseAuth = getAuth();
+function getFirebaseApp() {
+  const apps = getApps();
+
+  if (apps.length > 0) {
+    return apps[0];
+  }
+
+  return initializeApp(firebaseConfig);
+}
+export const firebaseApp = getFirebaseApp();
+export const auth = getAuth(firebaseApp);
 
 export const Authentication = () => {
-  return FirebaseAuth
-}
+  return auth;
+};
 
 export const SignUp = async (email, password) => {
-  await createUserWithEmailAndPassword(FirebaseAuth, email, password);
+  await createUserWithEmailAndPassword(auth, email, password);
 };
 
 export const SignIn = async (email, password) => {
-  await signInWithEmailAndPassword(FirebaseAuth, email, password);
+  await signInWithEmailAndPassword(auth, email, password);
 };
 
 export const SignOut = async () => {
-  await signOut(FirebaseAuth);
+  await signOut(auth);
+};
+
+export const onAuthStateChanged = (cb) => {
+  return _onAuthStateChanged(auth, cb);
 };
 
 export const GetSignInErrorMessage = (code) => {
